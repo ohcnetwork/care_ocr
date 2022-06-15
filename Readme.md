@@ -24,8 +24,13 @@ Cropped Image:
 - ...
 
 # Code to start with
+### Script-1
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/coronasafe/care_ocr/blob/master/Care.ipynb)
 
-**care_script.ipynb** uses time displayed on monitor to crop the image and then keras-ocr to extract the data.
+- **care.ipynb** gives visualization how image is cropped.
 
-**care.ipynb** gives visualization how image is cropped.
+### Script-2
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/coronasafe/care_ocr/blob/master/Care_Script.ipynb)
+
+- **care_script.ipynb** uses time displayed on monitor to crop the image and then keras-ocr to extract the data. 
 
