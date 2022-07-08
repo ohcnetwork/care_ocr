@@ -286,3 +286,4 @@ audios/
 templates.py
 newrelic.ini
 __pycache__/
+.ipynb_checkpoints/
