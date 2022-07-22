@@ -301,3 +301,4 @@ SPECTACULAR_SETTINGS = {
 }
 # Your stuff...
 # ------------------------------------------------------------------------------
+MODEL_PATH = str(ROOT_DIR / "model")
