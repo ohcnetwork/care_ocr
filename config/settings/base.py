@@ -302,3 +302,4 @@ SPECTACULAR_SETTINGS = {
 # Your stuff...
 # ------------------------------------------------------------------------------
 MODEL_PATH = str(ROOT_DIR / "model/last.pt")
+YOLO_PATH = str(ROOT_DIR / "image_ai/yolov5")
