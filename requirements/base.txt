@@ -70,3 +70,4 @@ keras-ocr
 opencv-python
 
 cloudinary
+tensorflow

@@ -14,8 +14,9 @@ def crop_img(img_url):
         source=img_url,
         exist_ok=True
     )
-    dir_path = settings.YOLO_PATH + "/runs/detect/exp2/crops/monitor"
-    img_name = img_url.split("/")[-1]
+    dir_path = settings.YOLO_PATH + "/runs/detect/exp/crops/monitor"
+    img_name = img_url.split("/")[-1].split(".")[0]
+    img_name = img_name + ".jpg"
     img_path = dir_path + "/" + img_name
     img = cv2.imread(img_path)
     # getting 30% right side part of image
@@ -36,41 +37,42 @@ def extract_data(cropped_image_path):
 
     prediction_groups = pipeline.recognize(images)
 
-    data = {}
+    data_dict = {}
     headings = ["Blood Pressure", "Pulse Rate", "SpO2", "Respiratory Rate", "Temperature"]
     counter = 0
     for text, box in prediction_groups[0]:
         length = len(text)
         if(text.isnumeric() or "/" in text or "." in text):
             if((length == 2 or length == 3) and counter == 0):
-                # print(f"{headings[0]}: {text}")
-                data[headings[0]] = text
+                print(f"{headings[0]}: {text}")
+                data_dict[headings[0]] = text
                 counter+=1
             elif("/" in text or length == 6 or length == 7 and counter == 1):
                 text_1 = text[0:3]
                 text_2 = text[4:]
-                # print(f"{headings[1]}: {text_1}/{text_2}")
-                data[headings[1]] = f"{text_1}/{text_2}"
+                print(f"{headings[1]}: {text_1}/{text_2}")
+                data_dict[headings[1]] = f"{text_1}/{text_2}"
                 counter+=1
             elif(text.isnumeric() and int(text) >= 0 and int(text) <=100 and counter == 2):
-                # print(f"{headings[2]}: {text}")
-                data[headings[2]] = text
+                print(f"{headings[2]}: {text}")
+                data_dict[headings[2]] = text
                 counter+=1
             elif(text.isnumeric() and length == 2 and counter == 3):
-                # print(f"{headings[3]}: {text}")
-                data[headings[3]] = text
+                print(f"{headings[3]}: {text}")
+                data_dict[headings[3]] = text
                 counter+=1
             elif("." in text or length == 3 and (counter == 3 or counter == 4)):
                 text_1 = text[0:2]
                 text_2 = text[2:]
-                # print(f"{headings[4]}: {text_1}.{text_2}")
-                data[headings[4]] = f"{text_1}.{text_2}"
+                print(f"{headings[4]}: {text_1}.{text_2}")
+                data_dict[headings[4]] = f"{text_1}.{text_2}"
 
-    return data
+
+    return data_dict
 
 def main(img_url):
     crop_img_path = crop_img(img_url)
-    extract_data(crop_img_path)
+    return extract_data(crop_img_path)
 
 
     
