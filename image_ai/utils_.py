@@ -2,7 +2,7 @@ from django.conf import settings
 from yolov5.detect import run
 import cv2
 from image_ai.apps import ImageAiConfig
-
+import keras_ocr 
 
 def crop_img(img_url):
 
@@ -29,16 +29,21 @@ def crop_img(img_url):
     return save_path
 
 def extract_data(cropped_image_path):
-    data_dict = {}
-    txt = ImageAiConfig.reader.readtext(cropped_image_path, detail=0)
+    
+    pipeline = ImageAiConfig.pipeline
+    images = [ keras_ocr.tools.read(path) for path in [
+      cropped_image_path
+    ]]
+
+    prediction_groups = pipeline.recognize(images)
 
     data_dict = {}
     headings = ["Blood Pressure", "Pulse Rate", "SpO2", "Respiratory Rate", "Temperature"]
     counter = 0
-    for text in txt:
+    for text, box in prediction_groups[0]:
         length = len(text)
         if(text.isnumeric() or "/" in text or "." in text):
-            if(((length == 2 or length == 3 ) and ("." not in text)) and counter == 0):
+            if((length == 2 or length == 3) and counter == 0):
                 print(f"{headings[0]}: {text}")
                 data_dict[headings[0]] = text
                 counter+=1
