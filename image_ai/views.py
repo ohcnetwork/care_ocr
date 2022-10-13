@@ -4,12 +4,10 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, JSONParser
-import cloudinary.uploader
 from image_ai.utils import main
-import cv2
 from django.conf import settings
-import numpy
 from PIL import Image
+import os
 
 class UploadPredictView(APIView):
     parser_classes = (
@@ -21,17 +19,10 @@ class UploadPredictView(APIView):
     def post(request):
         file = request.data.get("image")
         save_path = str(settings.ROOT_DIR) + "/image/" + file.name
-        # img = cv2.imdecode(numpy.frombuffer(file.read() , numpy.uint64), cv2.IMREAD_UNCHANGED)
-        # img = Image.fromarray(img)
-        # img.save(save_path)
-
-        # data = main(save_path)
-        # upload_data = cloudinary.uploader.upload(file)
-        # # print(upload_data)
-        # img = upload_data["url"]
-        img = Image.open(file).save(save_path)
+        Image.open(file).save(save_path)
        
         data = main(save_path)
+        os.remove(save_path)
         return Response(
             {
                 "status": "success",
