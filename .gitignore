@@ -275,3 +275,5 @@ image_proc/media/
 .env
 .envs/*
 !.envs/.local/
+
+image/*

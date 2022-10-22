@@ -70,5 +70,4 @@ easyocr>=1.6.2
 # roboflow
 opencv-python
 
-cloudinary
 # tensorflow
