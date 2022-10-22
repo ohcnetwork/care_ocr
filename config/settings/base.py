@@ -2,7 +2,6 @@
 Base settings to build other settings files upon.
 """
 from pathlib import Path
-import cloudinary
 
 import environ
 
@@ -303,10 +302,3 @@ SPECTACULAR_SETTINGS = {
 # ------------------------------------------------------------------------------
 MODEL_PATH = str(ROOT_DIR / "image_proc/model/last.pt")
 YOLO_PATH = str(ROOT_DIR / "yolov5")
-
-# ------Cloudinary----------------
-cloudinary.config(
-    cloud_name="dj4jmiua2",
-    api_key="448983219671985",
-    api_secret="Ja57qKfb7VDedm-QPpa7qsC9xCA",
-)
