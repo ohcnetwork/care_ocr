@@ -68,6 +68,6 @@ thop>=0.1.1  # FLOPs computation
 # keras-ocr
 easyocr>=1.6.2
 # roboflow
-opencv-python
+opencv-python==4.5.5.62
 
 # tensorflow
