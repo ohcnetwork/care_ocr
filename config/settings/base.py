@@ -300,5 +300,5 @@ SPECTACULAR_SETTINGS = {
 }
 # Your stuff...
 # ------------------------------------------------------------------------------
-MODEL_PATH = str(ROOT_DIR / "image_proc/model/last.pt")
+MODEL_PATH = str(ROOT_DIR / "image_proc/model/best.pt")
 YOLO_PATH = str(ROOT_DIR / "yolov5")
