@@ -1,4 +1,4 @@
-name: Deploy Care
+name: Deploy Care OCR
 
 on:
   workflow_dispatch:
