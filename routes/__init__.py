@@ -1,0 +1,1 @@
+from routes.predict_v2.index import predict_v2 # noqa
