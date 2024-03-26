@@ -9,6 +9,7 @@ from langchain.prompts import (
 )
 from langchain.chains import LLMChain
 
+from api.predict_v2.ai_helpers.utils import prediction_parser
 from config import OPENAI_API_KEY
 
 
@@ -21,7 +22,7 @@ class ParseChain:
 Tips to analyze the ocr data: monitor can be zoomed in or zoomed out, ocr data is read from left to right of an image from top to bottom(with every row you go down), most of the times readings that we want are at extreme right of the monitor screen, use expertise in reading 5ParaMonitor to make educated guesses about the correct reading of a field.
 NOTE: Many fields from below example can be missing, you need to output null for those fields.
 Example output in minified JSON format: 
-{{"time_stamp":"hh:mm:ss","ecg":{{"Heart_Rate_bpm":<value/null>}},"nibp":{{"systolic_mmhg":<value/null>,"diastolic_mmhg":<value/null>,"mean_arterial_pressure_mmhg":<value/null>}},"spO2":{{"oxygen_saturation_percentage":<value/null>}},"respiration_rate":{{"breaths_per_minute":<value/null>}},"temperature":{{"fahrenheit":<value/null>}}}}
+{{"time_stamp":"yyyy-mm-ddThh:mm:ss","ecg":{{"Heart_Rate_bpm":<value/null>}},"nibp":{{"systolic_mmhg":<value/null>,"diastolic_mmhg":<value/null>,"mean_arterial_pressure_mmhg":<value/null>}},"spO2":{{"oxygen_saturation_percentage":<value/null>}},"respiration_rate":{{"breaths_per_minute":<value/null>}},"temperature":{{"fahrenheit":<value/null>}}}}
 """
 
         system_prompt = PromptTemplate(
@@ -44,5 +45,5 @@ Example output in minified JSON format:
     async def async_predict(self):
         prediction = await self.chain.apredict()
         # TODO: add check if prediction is valid json or not
-        parsed_prediction = json.loads(prediction)
+        parsed_prediction = prediction_parser(prediction)
         return parsed_prediction
